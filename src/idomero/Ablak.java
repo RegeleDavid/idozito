@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 package idomero;
+import java.awt.Dimension;
+import java.awt.event.KeyEvent;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import javax.swing.JFrame;
@@ -16,14 +18,19 @@ public class Ablak extends javax.swing.JFrame {
     /**
      * Creates new form Ablak
      */
+    boolean v=true;
+    Thread th=null;
     public Ablak() {
         initComponents();
-        setExtendedState(JFrame.MAXIMIZED_BOTH); 
-       
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setMinimumSize(new Dimension(900, 500));
+        System.out.println( );
+        jButton2.setEnabled(false);
+        
     }
 
     public void ido(int ido){
-        Thread th=new Thread(){
+        th=new Thread(){
             boolean v=true;
             public void run(){
                 try {
@@ -62,7 +69,7 @@ public class Ablak extends javax.swing.JFrame {
                         
                         jLabel1.setText("kezdés: "+ora+":"+perc+":"+mperc);
                         jLabel2.setText(vege_);
-                        jLabel4.setText("hátralévő idő: "+(vege-kezd)/60+":"+(vege-kezd)%60);
+                        jLabel4.setText((vege-kezd)/60+":"+(vege-kezd)%60);
                         if(kezd<=vege){
                             sleep(1000);
                         }else{
@@ -71,9 +78,9 @@ public class Ablak extends javax.swing.JFrame {
                         }
                          
                   }
-                  jLabel1.setText("vege");
+                  jLabel1.setText("");
                   jLabel2.setText("");
-                  jLabel4.setText("");
+                  jLabel4.setText("vege");
                 } catch (Exception e) {
                     System.out.println("hiba");
                 }
@@ -97,12 +104,18 @@ public class Ablak extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         perc = new javax.swing.JTextField();
+        jButton2 = new javax.swing.JButton();
+        jPanel4 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(new java.awt.GridLayout(4, 1));
+        getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.LINE_AXIS));
+
+        jPanel2.setOpaque(false);
+        jPanel2.setPreferredSize(new java.awt.Dimension(170, 10));
+        jPanel2.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 1, 1));
 
         jButton1.setText("indit");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -113,6 +126,19 @@ public class Ablak extends javax.swing.JFrame {
 
         jLabel3.setText("perc");
 
+        perc.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                percKeyPressed(evt);
+            }
+        });
+
+        jButton2.setText("leáll");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -120,14 +146,17 @@ public class Ablak extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(perc, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel3))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(54, 54, 54)
-                        .addComponent(jButton1)))
-                .addContainerGap(39, Short.MAX_VALUE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jButton2)
+                            .addComponent(jButton1))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -138,39 +167,76 @@ public class Ablak extends javax.swing.JFrame {
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jButton1)
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton2))
         );
 
         jPanel2.add(jPanel1);
 
         getContentPane().add(jPanel2);
 
+        jPanel4.setLayout(new java.awt.BorderLayout());
+
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("k");
-        getContentPane().add(jLabel1);
+        jPanel4.add(jLabel1, java.awt.BorderLayout.CENTER);
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 200)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 300)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 0, 0));
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("h");
-        getContentPane().add(jLabel4);
+        jPanel4.add(jLabel4, java.awt.BorderLayout.PAGE_START);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("v");
-        getContentPane().add(jLabel2);
+        jPanel4.add(jLabel2, java.awt.BorderLayout.PAGE_END);
+
+        getContentPane().add(jPanel4);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       int p=Integer.parseInt(perc.getText());
-       if(!(perc.getText().equals(null))){
-           ido(p);
-           jButton1.setEnabled(false);
-       }
+        int p=Integer.parseInt(perc.getText());
+        if(!(perc.getText().equals(null))){
+            ido(p);
+            jButton1.setEnabled(false);
+            jButton2.setEnabled(true);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        if(null!=th){
+            th.stop();
+            jButton1.setEnabled(true);
+            jButton2.setEnabled(false);
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void percKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_percKeyPressed
+        if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+            
+            if(v){
+                v=false;
+                int p=Integer.parseInt(perc.getText());
+                if(!(perc.getText().equals(null))){
+                    ido(p);
+                    jButton1.setEnabled(false);
+                    jButton2.setEnabled(true);
+                }
+            }else{
+                v=true;
+                if(null!=th){
+                th.stop();
+                jButton1.setEnabled(true);
+                jButton2.setEnabled(false);
+        }
+            }
+        }
+// TODO add your handling code here:
+    }//GEN-LAST:event_percKeyPressed
 
     /**
      * @param args the command line arguments
@@ -209,12 +275,20 @@ public class Ablak extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JTextField perc;
     // End of variables declaration//GEN-END:variables
+
+    private void minimumSize(int i, int i0) {
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    
 }
