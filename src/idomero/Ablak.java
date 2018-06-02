@@ -8,6 +8,8 @@ import java.awt.Dimension;
 import java.awt.event.KeyEvent;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 /**
  *
@@ -88,7 +90,7 @@ public class Ablak extends javax.swing.JFrame {
 
            
         };
-        th.start();
+        
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -105,6 +107,7 @@ public class Ablak extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         perc = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -139,6 +142,13 @@ public class Ablak extends javax.swing.JFrame {
             }
         });
 
+        jButton3.setText("jButton3");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -151,7 +161,9 @@ public class Ablak extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel3))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(54, 54, 54)
+                        .addGap(2, 2, 2)
+                        .addComponent(jButton3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jButton2)
                             .addComponent(jButton1))
@@ -165,10 +177,16 @@ public class Ablak extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(perc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton2))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton2))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton3)
+                        .addGap(20, 20, 20))))
         );
 
         jPanel2.add(jPanel1);
@@ -202,6 +220,7 @@ public class Ablak extends javax.swing.JFrame {
         int p=Integer.parseInt(perc.getText());
         if(!(perc.getText().equals(null))){
             ido(p);
+            th.start();
             jButton1.setEnabled(false);
             jButton2.setEnabled(true);
         }
@@ -223,20 +242,27 @@ public class Ablak extends javax.swing.JFrame {
                 int p=Integer.parseInt(perc.getText());
                 if(!(perc.getText().equals(null))){
                     ido(p);
+                    th.start();
                     jButton1.setEnabled(false);
                     jButton2.setEnabled(true);
                 }
             }else{
                 v=true;
                 if(null!=th){
-                th.stop();
-                jButton1.setEnabled(true);
-                jButton2.setEnabled(false);
-        }
+                    th.stop();
+                    jButton1.setEnabled(true);
+                    jButton2.setEnabled(false);
+                }
             }
         }
 // TODO add your handling code here:
     }//GEN-LAST:event_percKeyPressed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        th.run();
+        th.start();
+        
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -276,6 +302,7 @@ public class Ablak extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
